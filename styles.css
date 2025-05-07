@@ -1,0 +1,145 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #1a1a1a;
+  color: #fff;
+  min-width: 1024px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #1a1a1a;
+}
+
+.logo img {
+  height: 40px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.avatar img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.hero h1 {
+  font-size: 3em;
+  margin: 10px 0;
+}
+
+.hero p {
+  font-size: 1.2em;
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 20px;
+  background-color: #fff;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.experience, .projects, .experience-details, .contact {
+  padding: 50px;
+  text-align: center;
+}
+
+.experience h2, .projects h2, .experience-details h2, .contact h2 {
+  color: #ff4500;
+  font-size: 2em;
+}
+
+.tech-logos img, .job img {
+  height: 50px;
+  margin: 0 10px;
+}
+
+.project-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.project-card {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;
+}
+
+.project-card img {
+  width: 100%;
+}
+
+.job {
+  margin: 20px 0;
+}
+
+.job h3 {
+  margin: 5px 0;
+}
+
+.job p {
+  color: #aaa;
+}
+
+.contact p {
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+
+.social-links img {
+  height: 30px;
+  margin: 0 10px;
+}
+
+@media (max-width: 1200px) {
+  .project-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero h1 {
+    font-size: 2em;
+  }
+
+  .hero p {
+    font-size: 1em;
+  }
+
+  .buttons button {
+    display: block;
+    margin: 10px auto;
+  }
+}

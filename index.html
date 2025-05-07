@@ -1,0 +1,130 @@
+<script type="text/javascript">
+  var gk_isXlsx = false;
+  var gk_xlsxFileLookup = {};
+  var gk_fileData = {};
+  function filledCell(cell) {
+    return cell !== '' && cell != null;
+  }
+  function loadFileData(filename) {
+  if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+      try {
+          var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+          var firstSheetName = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[firstSheetName];
+
+          // Convert sheet to JSON to filter blank rows
+          var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+          // Filter out blank rows (rows where all cells are empty, null, or undefined)
+          var filteredData = jsonData.filter(row => row.some(filledCell));
+
+          // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+          var headerRowIndex = filteredData.findIndex((row, index) =>
+            row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+          );
+          // Fallback
+          if (headerRowIndex === -1 || headerRowIndex > 25) {
+            headerRowIndex = 0;
+          }
+
+          // Convert filtered JSON back to CSV
+          var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+          csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+          return csv;
+      } catch (e) {
+          console.error(e);
+          return "";
+      }
+  }
+  return gk_fileData[filename] || "";
+  }
+  </script><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+<title>Portfolio</title>
+</head>
+<body>
+<header>
+<nav>
+<div class="logo"><img src="logo.png" alt="Logo"></div>
+<ul>
+  <li><a href="#home">Home</a></li>
+  <li><a href="#projects">Projects</a></li>
+  <li><a href="#experience">Experience</a></li>
+  <li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+</header>
+<main>
+<section class="hero">
+<div class="avatar"><img src="avatar.png" alt="Avatar"></div>
+<h1>I do code and make content about it!</h1>
+<p>I am a seasoned full-stack software engineer with over 8 years of professional experience, specializing in backend development. My expertise lies in crafting robust and scalable SaaS-based architectures on the Amazon AWS platform.</p>
+<div class="buttons">
+  <button>Get In Touch</button>
+  <button>Download CV</button>
+</div>
+</section>
+<section class="experience">
+<h2>EXPERIENCE WITH</h2>
+<div class="tech-logos">
+  <img src="javascript.png" alt="JS">
+  <img src="nodejs.png" alt="Node">
+  <img src="html5.png" alt="HTML">
+  <img src="css3.png" alt="CSS">
+  <img src="reactjs.png" alt="React">
+</div>
+</section>
+<section class="projects">
+<h2>PROJECTS</h2>
+<div class="project-cards">
+  <div class="project-card">
+    <img src="project-1.jpeg" alt="Power of HTML">
+    <h3>POWER OF HTML</h3>
+    <p>HTML TUTORIAL</p>
+    <a href="#">Click here</a>
+  </div>
+  <div class="project-card">
+    <img src="project-2.jpeg" alt="Unlock CSS Magic">
+    <h3>UNLOCK CSS MAGIC</h3>
+    <p>CSS TUTORIAL</p>
+    <a href="#">Click here</a>
+  </div>
+</div>
+</section>
+<section class="experience-details">
+<h2>EXPERIENCE</h2>
+<div class="job">
+  <img src="goog-logo.svg" alt="Google">
+  <h3>Lead Software Engineer at Google</h3>
+  <p>Nov 2019 - Present</p>
+  <p>As a Senior Software Engineer at Google, I played a pivotal role in developing innovative solutions for Google's core search algorithms. Collaborating with a dynamic team of engineers, I contributed to the enhancement of search accuracy and efficiency, spanning user experiences for millions of users worldwide.</p>
+</div>
+<div class="job">
+  <img src="apple-logo.svg" alt="Apple">
+  <h3>Junior Software Engineer at Apple</h3>
+  <p>Jan 2016 - Dec 2017</p>
+  <p>During my tenure at Apple, I held the role of Software Architect, where I played a key role in shaping the architecture of mission-critical software projects. Responsible for designing scalable and efficient systems, I provided technical leadership to a cross-functional team.</p>
+</div>
+<div class="job">
+  <img src="meta-logo.svg" alt="Meta">
+  <h3>Software Engineer at Meta</h3>
+  <p>Jan 2017 - Oct 2019</p>
+  <p>At Meta, I served as a Software Engineer, focusing on the design and implementation of backend systems for the social media giant's dynamic platform. Working on projects that involved large-scale data processing and user engagement features, I leveraged my expertise to ensure seamless functionality and scalability.</p>
+</div>
+</section>
+<section class="contact">
+<h2>Contact</h2>
+<p>Seasoned Full Stack Software Engineer with over 8 years of hands-on experience in designing and implementing robust, scalable, and innovative web solutions. Adept at leveraging a comprehensive skill set encompassing front-end and back-end technologies</p>
+<p>abmcodehub@gmail.com</p>
+<div class="social-links">
+  <a href="#"><img src="instagram.svg" alt="Instagram"></a>
+  <a href="#"><img src="x.png" alt="X"></a>
+  <a href="#"><img src="youtube.png" alt="YouTube"></a>
+</div>
+</section>
+</main>
+</body>
+</html>
